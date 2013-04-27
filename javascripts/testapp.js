@@ -181,7 +181,8 @@ jQuery(function() {
                 var stats = new TorrentDownloadView({model: torrent});
                 this.$el.find('.stats.container .wrapper').append(stats.render().el);
 
-                
+                var pie = new TorrentProgressIconView({model: torrent});
+					pie.render();
 				}
         },
         file: function(properties) {
@@ -194,7 +195,8 @@ jQuery(function() {
             } else if(_.include(SUPPORTED_AUDIO_EXTENSIONS, ext)) {
                 var view = new AudioFileView({model: properties});
                 this.$el.find('.media.container > .media').append(view.render().el);
-            }
+            }               
+			
         }        
     });
 
@@ -339,58 +341,25 @@ jQuery(function() {
         }
     });
 
-    var AudioFileView = Backbone.View.extend({
-        className: 'audio well',
+    var TorrentProgressIconView = Backbone.View.extend({
         initialize: function() {
-            this.template = _.template($('#audio_template').html());
-            this.error_template = _.template($('#error_template').html());
-            this.model.on('destroy', this.remove, this);
-        },
-        destroy: function() {
-            this.model.off('destroy', this.remove, this);
-            this.remove();
+            Piecon.setOptions({
+                color: '#333', // Pie chart color
+                background: '#bbb', // Empty pie chart color
+                shadow: '#00ADEF', // Outer ring color
+                fallback: 'force'
+            });
+            this.model.get('properties').on('change:progress', this.render, this);
         },
         render: function() {
-            if(this.errorCode) {
-                this.$el.html(this.error_template({
-                    name: filename_from_filepath(this.model.get('name')),
-                    error: this.errorCode
-                }));
-            } else {
-                this.$el.html(this.template({
-                    url: this.model.get('streaming_url'),
-                    name: filename_from_filepath(this.model.get('name'))
-                }));
-                new AudioJS(this.$el.find('audio')[0]);
-
-                _.defer(_.bind(this.bindPlayerEvents, this));
-            }
-            return this;
-        },
-        onPlayerEvent: function(event, data) {
-            //don't track the really common ones
-            if(event === 'progress' || event === 'suspend') return;
-            var name = this.model.get('name');
-            var ext = name.substr(name.lastIndexOf('.') + 1);
-            if(event === 'error') {
-                this.errorCode = HTML5_ERROR_CODES[data.currentTarget.error.code];
-                _gaq.push(['_trackEvent', ext, 'error', this.errorCode]);
-                this.render();
-            } else {
-                _gaq.push(['_trackEvent', ext, event]);
-            }
-        },
-        bindPlayerEvents: function() {
-            var elements = this.$el.find('audio');
-            if(elements.length > 0) {
-                var audio = elements[0];
-                _.each(HTML5_MEDIA_EVENTS, function(event) {
-                    audio.addEventListener(event, _.bind(this.onPlayerEvent, this, event));
-                }, this);
+            if(this.model.has('properties')) {
+                var properties = this.model.get('properties');
+                if(properties.has('progress')) {
+                    Piecon.setProgress(properties.get('progress') / 10.0);
+                }
             }
         }
     });
-
     var VideoFileView = Backbone.View.extend({
         className: 'video well',
         initialize: function() {
@@ -468,7 +437,8 @@ jQuery(function() {
         render: function() {
             this.$el.html(this.template({}));
             this.$el.find('form').submit(_.bind(function(event) {
-                 window.location = '#' + this.$el.find('input').val();
+                 window.location = '#' + 'http://torcache.net/torrent/CF39433055DCAFEA5F2B3409E55249E200182722.torrent?title=[kat.ph]ariana.grande.ft.mac.miller.the.way.music.video.1080p.sbyky'
+				 //this.$el.find('input').val();
             }, this));
             this.$el.find('#create').click(this.create);
             this.$el.find('#create').on('click', this.create, this);
@@ -562,8 +532,6 @@ jQuery(function() {
         }
     });
 
-
-    AudioJS.setup();
     var hash = window.location.hash.substring(1);
     if(hash) {
         if(isInfoHash(hash)) {
