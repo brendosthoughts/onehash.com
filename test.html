@@ -120,7 +120,6 @@
             <button class="btn" id="create">Create Torrent</button>
 -->
         </form>
-
     </script>
  <script type="text/template" id="input_container_template"> </script>
 	<script type="text/template" id="media_container_template">
@@ -137,26 +136,6 @@
             <div class="shadow"></div>
             <div class="stats container">
                 <div class="wrapper">
-                </div>
-            </div>
-        </div>
-        <div class="code container_background collapsed">
-            <a class="fork" href="https://github.com/bittorrenttorque/onehash.com"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork.png" alt="Fork me on GitHub"></a>
-            <a href="" class="icon"></a>
-            <div class="shadow"></div>
-            <div class="code container">
-                <div class="wrapper">
-                    var btapp = new Btapp;<br>
-                    btapp.connect();<br>
-                    <br>
-                    btapp.live('torrent * file * properties streaming_url', function(url, file_props, file) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;//create an html5 video/audio tag and play!<br>
-                    });<br>
-                    <br>
-                    //lets add some content that will get detected by the code above.<br>
-                    btapp.on('add', function(add) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;add.torrent('http://apps.bittorrent.com/torrents/PrettyLights-Bittorrent.torrent');<br>
-                    });<br>
                 </div>
             </div>
         </div>
