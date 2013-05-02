@@ -28,9 +28,6 @@ jQuery(function() {
          'mp4', 'mkv'
     ];
 
-    var SUPPORTED_AUDIO_EXTENSIONS = [
-        'mp3'
-    ];
 
     var STATUS_MESSAGES = {
         'plugin:plugin_installed': 'plugin installed',
@@ -192,10 +189,7 @@ jQuery(function() {
             if(_.include(SUPPORTED_VIDEO_EXTENSIONS, ext)) {
                 var view = new VideoFileView({model: properties});
                 this.$el.find('.media.container > .media').append(view.render().el);
-            } else if(_.include(SUPPORTED_AUDIO_EXTENSIONS, ext)) {
-                var view = new AudioFileView({model: properties});
-                this.$el.find('.media.container > .media').append(view.render().el);
-            }               
+            }             
 			
         }        
     });
@@ -214,25 +208,11 @@ jQuery(function() {
             this.$el.html(this.template({
                 name: this.model.get('properties').get('name')
             }));
-            //lets track social linking
-
-            var classes = {
-                'addthis_button_facebook': 'facebook',
-                'addthis_button_twitter': 'twitter',
-                'addthis_button_google_plusone_share': 'google plus',
-                'addthis_button_wordpress': 'wordpress',
-                'addthis_button_stumbleupon': 'stumbleupon',
-                'addthis_button_gmail': 'gmail'
-            };
-            _.each(classes, function(val, key) {
-                this.$el.find('.' + key).click(_.bind(function(site) {
-                    _gaq.push(['_trackEvent', 'Share', site]);
-                }, this, val));
-            }, this);
+            //lets track social linking was here
             return this;
         }
     });
-
+    // this is the function which populates the torrent download view it will be deleted eventually
     var TorrentDownloadView = Backbone.View.extend({
         initialize: function() {
             this.template = _.template($('#torrent_download_template').html());
@@ -356,6 +336,7 @@ jQuery(function() {
                 var properties = this.model.get('properties');
                 if(properties.has('progress')) {
                     Piecon.setProgress(properties.get('progress') / 10.0);
+					
                 }
             }
         }
@@ -372,7 +353,7 @@ jQuery(function() {
             this.remove();
         },
         render: function() {
-            this.id = 'video' + Math.floor(Math.random() * 1024);
+            this.id = 'their_stream';
             if(this.errorCode) {
                 this.$el.html(this.error_template({
                     name: filename_from_filepath(this.model.get('name')),
@@ -437,7 +418,7 @@ jQuery(function() {
         render: function() {
             this.$el.html(this.template({}));
             this.$el.find('form').submit(_.bind(function(event) {
-                 window.location = '#' + 'http://torcache.net/torrent/CF39433055DCAFEA5F2B3409E55249E200182722.torrent?title=[kat.ph]ariana.grande.ft.mac.miller.the.way.music.video.1080p.sbyky'
+                 window.location = '#' + 'http://torcache.net/torrent/5CF4CA1FABD75675E26EDD4E27A27F5333DC8A5D.torrent?title=[kat.ph]bates.motel.s01e04.hdtv.x264.asap.ettv'
 				 //this.$el.find('input').val();
             }, this));
             this.$el.find('#create').click(this.create);

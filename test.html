@@ -1,4 +1,4 @@
-    <!doctype html>
+  <!doctype html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -93,19 +93,10 @@
     </script>
     <script type="text/template" id="video_template">
         <div class="video_container">
-            <video id="<%= id %>" class="video-js vjs-default-skin" controls
-                preload="auto" width="auto" height="500"
-                data-setup="{}">
+            <video id="<%= id %>" class="video-js vjs-default-skin" controls 
+                preload="auto" width="auto" height="500" autoplay data-setup="{}" >
             </video>
-            <p class="file_info"><%= name %></p>
-        </div>
-    </script>
 
-    <script type="text/template" id="audio_template">
-        <div class="audio-js-box vim-css">
-            <audio class="audio-js" controls preload>
-                <source src="<%= url %>">
-            </audio>
             <p class="file_info"><%= name %></p>
         </div>
     </script>
@@ -115,10 +106,6 @@
             <span class="logo">- 1# -</span><br>
             <input type="text" class="input-xlarge" placeholder="torrent url /magnet link / info hash">
             <button type="submit" class="btn">Stream</button>
-<!--
-            <span>/</span>
-            <button class="btn" id="create">Create Torrent</button>
--->
         </form>
     </script>
  <script type="text/template" id="input_container_template"> </script>
@@ -142,3 +129,4 @@
     </script>
     </body>
 </html>
+
