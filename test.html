@@ -3,17 +3,11 @@
     <head>
         <meta charset="utf-8">
         <title>OneHash</title>
-			<link href="video-js/video-js.css" rel="stylesheet" type="text/css">
-	<link href="video-js-enhancements/design/video.playlist.css" rel="stylesheet" type="text/css">
-	<link href="video-js-enhancements/design/video.image.css" rel="stylesheet" type="text/css"> 
-	
-		<script src="video-js-enhancements/tech/image.js"></script>
-	<script src="video-js-enhancements/extras.js"></script>
-	<script src="video-js-enhancements/playlist.js"></script>
-	<script src="video-js-enhancements/share.js"></script>
-	<script src="video-js-enhancements/reporting.js"></script>
         <!-- collection of general dependencies -->
-        <script type="text/javascript" src="javascripts/lib/jquery.js"></script>
+		<link href="video-js-enhancements/design/video.image.css" rel="stylesheet" type="text/css">
+		<link href="video-js-enhancements/design/video.playlist.css" rel="stylesheet" type="text/css">       
+
+	    <script type="text/javascript" src="javascripts/lib/jquery.js"></script>
         <script type="text/javascript" src="javascripts/lib/json2.js"></script>
         <script type="text/javascript" src="javascripts/lib/underscore.js"></script>
         <script type="text/javascript" src="javascripts/lib/backbone.js"></script>
@@ -40,7 +34,9 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
 
-        
+	<!--  below scripts are fro videojs enhancements-->
+	<script src="video-js-enhancements/clip_capture.js"></script>
+	<script src="video-js-enhancements/share.js"></script>
         <link rel="icon" 
               type="image/png" 
               href="images/favicon.png">
@@ -102,22 +98,8 @@
     </script>
     <script type="text/template" id="video_template">
         <div class="video_container">
-            <video id="<%= id %>" class="video-js"  
-                preload="auto" width="auto" height="500"  data-setup="{
-						"techOrder": ["html5","image","flash"],
-					  
-						"playlist":{
-						  "options": {
-							  "imageDuration": 10,
-							  "showImageControls": true,
-							  "allowImageSlideShow": true
-  						  },
-						  
-						  "url": "fr-style-playlist.html"
-						 
-						}
-				
-				}" >
+            <video id="<%= id %>" class="video-js vjs-default-skin"  
+                preload="auto" width="auto" height="500"  controls data-setup="{ }" >
             </video>
 
             <p class="file_info"><%= name %></p>
