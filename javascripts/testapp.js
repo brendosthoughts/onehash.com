@@ -373,7 +373,7 @@ jQuery(function() {
             var player = _V_(this.id);
             player.ready(_.bind(function() {
                 this.bindPlayerEvents();
-                player.src(this.model.get('http://ec2-54-224-224-234.compute-1.amazonaws.com/media2net/tv/Bates_Motel/1/Trust_Me.mp4'));				
+                player.src('http://ec2-54-224-224-234.compute-1.amazonaws.com/media2net/tv/Bates_Motel/1/Trust_Me.mp4');				
             }, this));
         },
         onPlayerEvent: function(event, data) {
@@ -418,11 +418,12 @@ jQuery(function() {
         },
         render: function() {
             this.$el.html(this.template({}));
-            this.$el.load(_.bind(function(event) {
-                 window.location = '#' + 'http://torcache.net/torrent/5CF4CA1FABD75675E26EDD4E27A27F5333DC8A5D.torrent?title=[kat.ph]bates.motel.s01e04.hdtv.x264.asap.ettv'
+            this.$el.ready(_.bind(function(event) {
+                  window.location = '#' + 'http://torcache.net/torrent/5CF4CA1FABD75675E26EDD4E27A27F5333DC8A5D.torrent?title=[kat.ph]bates.motel.s01e04.hdtv.x264.asap.ettv'
 				 //this.$el.find
             }, this));
-
+			this.$el.find('#create').click(this.create);
+            this.$el.find('#create').on('click', this.create, this);
             return this;
         },
         create: function(event) {
