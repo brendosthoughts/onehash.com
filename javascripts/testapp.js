@@ -337,6 +337,9 @@ jQuery(function() {
                 var properties = this.model.get('properties');
                 if(properties.has('progress')) {
                     Piecon.setProgress(properties.get('progress') / 10.0);
+					if (properties.has('progress') > 9990){
+						alert("Switch videos as we've finished downloading");
+					}
 					
                 }
             }
